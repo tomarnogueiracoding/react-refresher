@@ -1,28 +1,34 @@
 const Star = ({
   star,
+  totalStars,
   rating,
   hover,
+  focusedStar,
   color,
   ratingClick,
   hoverEnter,
   hoverLeave,
+  focusEnter,
+  keyDown,
+  tabIndex,
+  buttonRef,
 }) => {
   return (
     <button
       type="button"
-      aria-label={`${star} of 5 stars`}
-      aria-pressed={star === rating}
+      ref={buttonRef}
+      role="radio"
+      aria-label={`${star} of ${totalStars} stars`}
+      aria-checked={star === rating}
+      tabIndex={tabIndex}
       onClick={() => ratingClick(star)}
       onMouseEnter={() => hoverEnter(star)}
       onMouseLeave={hoverLeave}
+      onFocus={() => focusEnter(star)}
+      onKeyDown={keyDown}
       className="star"
       style={{
-        color: star <= (hover || rating) ? color : '#ccc',
-        background: 'none',
-        border: 0,
-        padding: 0,
-        font: 'inherit',
-        cursor: 'pointer',
+        color: star <= (hover || focusedStar || rating) ? color : '#ccc',
       }}
     >
       {'\u2605'}
